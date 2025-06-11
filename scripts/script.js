@@ -242,7 +242,7 @@ function update() {
     // Eventuele animaties of logica
 }
 
-function summonCreature() {
+function summonCreature(noSprite) {
     const creatures = [
         { name: 'Draak', rarity: 'Legendary' },
         { name: 'Feniks', rarity: 'Epic' },
@@ -286,11 +286,13 @@ function summonCreature() {
     if (this.listVisible) {
         this.listText.setText(getSummonedList(this.summoned));
     }
-    // Toon sprite van het gesummonde wezen
-    const x = Phaser.Math.Between(60, this.scale.width - 60);
-    const y = Phaser.Math.Between(250, this.scale.height - 60);
-    const sprite = this.add.image(x, y, creature.name).setDisplaySize(40, 40);
-    this.spriteGroup.add(sprite);
+    // Alleen sprite tonen als noSprite niet waar is
+    if (!noSprite) {
+        const x = Phaser.Math.Between(60, this.scale.width - 60);
+        const y = Phaser.Math.Between(250, this.scale.height - 60);
+        const sprite = this.add.image(x, y, creature.name).setDisplaySize(40, 40);
+        this.spriteGroup.add(sprite);
+    }
     // Geef geld op basis van rarity
     const rarityMoney = {
         'Legendary': 100,
